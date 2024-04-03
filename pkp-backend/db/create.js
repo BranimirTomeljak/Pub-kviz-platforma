@@ -15,11 +15,11 @@ const { Pool } = require("pg");
         const res = await client.query(`SELECT datname FROM pg_catalog.pg_database WHERE datname = '${process.env.DB_DATABASE}'`);
         
         if (res.rowCount === 0) {
-            console.log(`${process.env.DB_DATABASE} database not found, creating it.`);
+            console.log(`Database ${process.env.DB_DATABASE} not found, creating it.`);
             await client.query(`CREATE DATABASE "${process.env.DB_DATABASE}";`);
-            console.log(`created database ${process.env.DB_DATABASE}.`);
+            console.log(`Created database ${process.env.DB_DATABASE}.`);
         } else {
-            console.log(`${process.env.DB_DATABASE} database already exists.`);
+            console.log(`Database ${process.env.DB_DATABASE} already exists.`);
         }
     } finally {
         client.release();
