@@ -1,4 +1,4 @@
-const db = require("./dbConfig");
+const db = require("./config");
 
 const drop_tables = `
     DROP SCHEMA public CASCADE;
@@ -6,7 +6,7 @@ const drop_tables = `
 `;
 
 const sql_create_users = `CREATE TABLE users (
-    id int  GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     mail text NOT NULL UNIQUE,
     password text NOT NULL
 )`;
@@ -26,7 +26,7 @@ const sql_insert_users = `INSERT INTO users (mail, password) VALUES
 
 const sql_insert_admin = `INSERT INTO admin (id) VALUES (4)`;
 
-let table_names = ["users", "admin", "trackings"];
+let table_names = ["users", "admin"];
 
 let tables = [sql_create_users, sql_create_admin];
 
