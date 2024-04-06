@@ -11,7 +11,7 @@ const pool = new Pool({
 
 async function query(text, params, throwerr = false) {
   try {
-    console.log(text);
+    //console.log(text);
     const result = await pool.query(text, params);
     return result.rows;
   } catch (err) {
