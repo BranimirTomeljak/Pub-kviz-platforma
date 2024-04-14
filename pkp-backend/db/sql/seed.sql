@@ -246,7 +246,7 @@ VALUES
   (4, 'Trivia Titans'),
   (5, 'Knowledge Knights');
 
-INSERT INTO Zapis (id, redniBrojKruga, idTima)
+INSERT INTO Zapis (id, redniBrojKruga, brojBodova, idTima)
 VALUES
   (1, 1, 5, 1),
   (2, 1, 6, 2),
