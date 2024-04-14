@@ -90,6 +90,7 @@ CREATE TABLE Zapis
 (
   id INT NOT NULL,
   redniBrojKruga INT NOT NULL,
+  brojBodova INT NOT NULL,
   idTima INT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (idTima) REFERENCES Tim(id)
@@ -247,11 +248,11 @@ VALUES
 
 INSERT INTO Zapis (id, redniBrojKruga, idTima)
 VALUES
-  (1, 1, 1),
-  (2, 1, 2),
-  (3, 1, 3),
-  (4, 1, 4),
-  (5, 1, 5);
+  (1, 1, 5, 1),
+  (2, 1, 6, 2),
+  (3, 1, 7, 3),
+  (4, 1, 8, 4),
+  (5, 1, 9, 5);
 
 INSERT INTO clan (idNatjecatelja, idTima)
 VALUES
