@@ -1,21 +1,19 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { sequelize } = require("./models");
+const db = require("./models");
+const indexRouter = require("./routes/index");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
-
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const indexRouter = require("./routes/index");
-const userRouter = require("./routes/userRoutes");
+app.use(bodyParser.json());
 
 app.use("/", indexRouter);
-app.use("/", userRouter);
 
-sequelize
+const PORT = process.env.PORT || 3000;
+
+db.sequelize
   .sync()
   .then(() => {
     app.listen(PORT, () => {
@@ -23,5 +21,5 @@ sequelize
     });
   })
   .catch((err) => {
-    console.error("Unable to connect to the database:", err);
+    console.log("Failed to sync database:", err);
   });

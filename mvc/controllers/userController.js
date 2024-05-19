@@ -1,22 +1,20 @@
-const { User } = require("../models");
+const db = require("../models");
 
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await db.Korisnik.findAll();
     res.render("users", { users });
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send(error.message);
   }
 };
 
 exports.createUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    await User.create({ name, email });
-    res.redirect("/users");
+    const { id, email } = req.body;
+    const newUser = await db.Korisnik.create({ id, email });
+    res.status(201).json(newUser);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send(error.message);
   }
 };
