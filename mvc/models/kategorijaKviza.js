@@ -18,9 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   KategorijaKviza.associate = (models) => {
-    KategorijaKviza.belongsTo(models.Kategorija, {
-      foreignKey: "idKategorije",
-    });
+    KategorijaKviza.belongsTo(models.Kategorija, { foreignKey: "idKategorije" });
     KategorijaKviza.belongsTo(models.Kviz, { foreignKey: "idKviza" });
   };
 

@@ -1,6 +1,6 @@
 const sql_create_korisnik = `CREATE TABLE Korisnik
 (
-  id INT NOT NULL,
+  id SERIAL,
   email VARCHAR NOT NULL,
   PRIMARY KEY (id),
   UNIQUE (email)
@@ -30,7 +30,7 @@ const sql_create_organizator = `CREATE TABLE Organizator
 
 const sql_create_liga = `CREATE TABLE Liga
 (
-  id INT NOT NULL,
+  id SERIAL,
   naziv VARCHAR NOT NULL,
   status INT NOT NULL,
   pocetniDatum DATE NOT NULL,
@@ -42,7 +42,7 @@ const sql_create_liga = `CREATE TABLE Liga
 
 const sql_create_kategorija = `CREATE TABLE Kategorija
 (
-  id INT NOT NULL,
+  id SERIAL,
   naziv VARCHAR NOT NULL,
   PRIMARY KEY (id),
   UNIQUE (naziv)
@@ -50,7 +50,7 @@ const sql_create_kategorija = `CREATE TABLE Kategorija
 
 const sql_create_lokal = `CREATE TABLE Lokal
 (
-  id INT NOT NULL,
+  id SERIAL,
   adresa VARCHAR NOT NULL,
   grad VARCHAR NOT NULL,
   naziv VARCHAR NOT NULL,
@@ -62,7 +62,7 @@ const sql_create_lokal = `CREATE TABLE Lokal
 
 const sql_create_kviz = `CREATE TABLE Kviz
 (
-  id INT NOT NULL,
+  id SERIAL,
   naziv VARCHAR NOT NULL,
   opis VARCHAR NOT NULL,
   maxBrojTimova INT NOT NULL,
@@ -76,14 +76,14 @@ const sql_create_kviz = `CREATE TABLE Kviz
 
 const sql_create_tim = `CREATE TABLE Tim
 (
-  id INT NOT NULL,
+  id SERIAL,
   naziv VARCHAR NOT NULL,
   PRIMARY KEY (id)
 );`;
 
 const sql_create_zapis = `CREATE TABLE Zapis
 (
-  id INT NOT NULL,
+  id SERIAL,
   redniBrojKruga INT NOT NULL,
   brojBodova INT NOT NULL,
   idTima INT NOT NULL,
@@ -159,23 +159,23 @@ const sql_create_odrzavanjeKviza = `CREATE TABLE odrzavanjeKviza
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
 
-const sql_insert_korisnik = `INSERT INTO Korisnik (id, email)
+const sql_insert_korisnik = `INSERT INTO Korisnik (email)
 VALUES
-  (1, 'user1@example.com'),
-  (2, 'user2@example.com'),
-  (3, 'user3@example.com'),
-  (4, 'user4@example.com'),
-  (5, 'user5@example.com'),
-  (6, 'user6@example.com'),
-  (7, 'user7@example.com'),
-  (8, 'user8@example.com'),
-  (9, 'user9@example.com'),
-  (10, 'user10@example.com'),
-  (11, 'user11@example.com'),
-  (12, 'user12@example.com'),
-  (13, 'user13@example.com'),
-  (14, 'user14@example.com'),
-  (15, 'user15@example.com');
+  ('user1@example.com'),
+  ('user2@example.com'),
+  ('user3@example.com'),
+  ('user4@example.com'),
+  ('user5@example.com'),
+  ('user6@example.com'),
+  ('user7@example.com'),
+  ('user8@example.com'),
+  ('user9@example.com'),
+  ('user10@example.com'),
+  ('user11@example.com'),
+  ('user12@example.com'),
+  ('user13@example.com'),
+  ('user14@example.com'),
+  ('user15@example.com');
 `;
 
 const sql_insert_natjecatelj = `INSERT INTO Natjecatelj (id, grad)
@@ -205,58 +205,58 @@ VALUES
   (15);
 `;
 
-const sql_insert_liga = `INSERT INTO Liga (id, naziv, status, pocetniDatum, krajnjiDatum, idOrganizatora)
+const sql_insert_liga = `INSERT INTO Liga (naziv, status, pocetniDatum, krajnjiDatum, idOrganizatora)
 VALUES
-  (1, 'Liga A', 1, '2024-04-01', '2024-06-30', 11),
-  (2, 'Liga B', 1, '2024-05-01', '2024-07-31', 12),
-  (3, 'Liga C', 1, '2024-06-01', '2024-08-31', 13),
-  (4, 'Liga D', 1, '2024-07-01', '2024-09-30', 14),
-  (5, 'Liga E', 1, '2024-08-01', '2024-10-31', 15);
+  ('Liga A', 1, '2024-04-01', '2024-06-30', 11),
+  ('Liga B', 1, '2024-05-01', '2024-07-31', 12),
+  ('Liga C', 1, '2024-06-01', '2024-08-31', 13),
+  ('Liga D', 1, '2024-07-01', '2024-09-30', 14),
+  ('Liga E', 1, '2024-08-01', '2024-10-31', 15);
 `;
 
-const sql_insert_kategorija = `INSERT INTO Kategorija (id, naziv)
+const sql_insert_kategorija = `INSERT INTO Kategorija (naziv)
 VALUES
-  (1, 'Sports'),
-  (2, 'Science'),
-  (3, 'History'),
-  (4, 'Art'),
-  (5, 'Music');
+  ('Sports'),
+  ('Science'),
+  ('History'),
+  ('Art'),
+  ('Music');
 `;
 
-const sql_insert_lokal = `INSERT INTO Lokal (id, adresa, grad, naziv, kapacitet, idVlasnikaLokala)
+const sql_insert_lokal = `INSERT INTO Lokal (adresa, grad, naziv, kapacitet, idVlasnikaLokala)
 VALUES
-  (1, 'Main Street 123', 'Zagreb', 'Trivia Bar', 50, 6),
-  (2, 'Square Avenue 456', 'Split', 'Quiz Cafe', 30, 7),
-  (3, 'Park Road 789', 'Rijeka', 'Brainy Pub', 40, 8),
-  (4, 'Beach Boulevard 101', 'Zadar', 'Quizzical Lounge', 60, 9),
-  (5, 'River Lane 202', 'Osijek', 'Intellectual Inn', 35, 10);
+  ('Main Street 123', 'Zagreb', 'Trivia Bar', 50, 6),
+  ('Square Avenue 456', 'Split', 'Quiz Cafe', 30, 7),
+  ('Park Road 789', 'Rijeka', 'Brainy Pub', 40, 8),
+  ('Beach Boulevard 101', 'Zadar', 'Quizzical Lounge', 60, 9),
+  ('River Lane 202', 'Osijek', 'Intellectual Inn', 35, 10);
 `;
 
-const sql_insert_kviz = `INSERT INTO Kviz (id, naziv, opis, maxBrojTimova, maxVelicinaTima, datum, trajanje, brojKrugova, status)
+const sql_insert_kviz = `INSERT INTO Kviz (naziv, opis, maxBrojTimova, maxVelicinaTima, datum, trajanje, brojKrugova, status)
 VALUES
-  (1, 'Trivia Night', 'blabla opis 1', 10, 6, '2024-04-15', 120, 5, 1),
-  (2, 'Brain Teasers', 'blabla opis 2', 8, 4, '2024-05-10', 90, 4, 1),
-  (3, 'Music Mania', 'blabla opis 3', 12, 5, '2024-06-20', 150, 6, 1),
-  (4, 'History Buffs', 'blabla opis 4', 6, 3, '2024-07-05', 75, 3, 1),
-  (5, 'Art Enthusiasts', 'blabla opis 5', 10, 5, '2024-08-12', 100, 4, 1);
+  ('Trivia Night', 'blabla opis 1', 10, 6, '2024-04-15', 120, 5, 1),
+  ('Brain Teasers', 'blabla opis 2', 8, 4, '2024-05-10', 90, 4, 1),
+  ('Music Mania', 'blabla opis 3', 12, 5, '2024-06-20', 150, 6, 1),
+  ('History Buffs', 'blabla opis 4', 6, 3, '2024-07-05', 75, 3, 1),
+  ('Art Enthusiasts', 'blabla opis 5', 10, 5, '2024-08-12', 100, 4, 1);
 `;
 
-const sql_insert_tim = `INSERT INTO Tim (id, naziv)
+const sql_insert_tim = `INSERT INTO Tim (naziv)
 VALUES
-  (1, 'Team Alpha'),
-  (2, 'Quizmasters'),
-  (3, 'Brainiacs'),
-  (4, 'Trivia Titans'),
-  (5, 'Knowledge Knights');
+  ('Team Alpha'),
+  ('Quizmasters'),
+  ('Brainiacs'),
+  ('Trivia Titans'),
+  ('Knowledge Knights');
 `;
 
-const sql_insert_zapis = `INSERT INTO Zapis (id, redniBrojKruga, brojBodova, idTima)
+const sql_insert_zapis = `INSERT INTO Zapis (redniBrojKruga, brojBodova, idTima)
 VALUES
-  (1, 1, 5, 1),
-  (2, 1, 6, 2),
-  (3, 1, 7, 3),
-  (4, 1, 8, 4),
-  (5, 1, 9, 5);
+  (1, 5, 1),
+  (1, 6, 2),
+  (1, 7, 3),
+  (1, 8, 4),
+  (1, 9, 5);
 `;
 
 const sql_insert_clan = `INSERT INTO clan (idNatjecatelja, idTima)
