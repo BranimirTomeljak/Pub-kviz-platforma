@@ -1,5 +1,5 @@
-const db = require('../models');
-const logger = require('../config/logger');
+const db = require("../models");
+const logger = require("../config/logger");
 
 exports.createUser = async (req, res) => {
   try {
@@ -12,12 +12,25 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.getUsers = async (req, res) => {
+exports.getUser = async (req, res) => {
   try {
-    const users = await db.Korisnik.findAll();
-    res.render('users', { users });
+    const { id } = req.body;
+    const user = await db.Korisnik.findByPk(id);
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).send("User not found");
+    }
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
 
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await db.Korisnik.findAll();
+    res.render("users", { users });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
