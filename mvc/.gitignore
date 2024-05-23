@@ -12,4 +12,4 @@ coverage
 benchmarks/graphs
 
 #my
-#.env # nek stoji zasad zakomentirano
+.env
