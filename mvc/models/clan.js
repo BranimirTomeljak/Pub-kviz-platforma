@@ -2,13 +2,15 @@ module.exports = (sequelize, DataTypes) => {
   const Clan = sequelize.define(
     "Clan",
     {
-      idNatjecatelja: {
+      idnatjecatelja: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
-      idTima: {
+      idtima: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
     },
     {
@@ -18,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Clan.associate = (models) => {
-    Clan.belongsTo(models.Natjecatelj, { foreignKey: "idNatjecatelja" });
-    Clan.belongsTo(models.Tim, { foreignKey: "idTima" });
+    Clan.belongsTo(models.Natjecatelj, { foreignKey: "idnatjecatelja" });
+    Clan.belongsTo(models.Tim, { foreignKey: "idtima" });
   };
 
   return Clan;

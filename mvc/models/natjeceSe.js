@@ -5,10 +5,12 @@ module.exports = (sequelize, DataTypes) => {
       idTima: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
       idLige: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
     },
     {
@@ -18,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   NatjeceSe.associate = (models) => {
-    NatjeceSe.belongsTo(models.Tim, { foreignKey: "idTima" });
-    NatjeceSe.belongsTo(models.Liga, { foreignKey: "idLige" });
+    NatjeceSe.belongsTo(models.Tim, { foreignKey: "idtima" });
+    NatjeceSe.belongsTo(models.Liga, { foreignKey: "idlige" });
   };
 
   return NatjeceSe;

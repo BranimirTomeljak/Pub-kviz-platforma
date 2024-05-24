@@ -256,7 +256,8 @@ VALUES
   (1, 6, 2),
   (1, 7, 3),
   (1, 8, 4),
-  (1, 9, 5);
+  (1, 9, 5),
+  (1, 5, 1);
 `;
 
 const sql_insert_clan = `INSERT INTO clan (idNatjecatelja, idTima)
@@ -301,7 +302,8 @@ VALUES
   (2, 2),
   (3, 3),
   (4, 4),
-  (5, 5);
+  (5, 5),
+  (6, 1);
 `;
 
 const sql_insert_pregledava = `INSERT INTO pregledava (idNatjecatelja, idZapisa)
