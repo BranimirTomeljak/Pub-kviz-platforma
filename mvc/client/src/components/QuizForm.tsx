@@ -1,4 +1,3 @@
-import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { InputField } from "./InputField";
@@ -17,7 +16,6 @@ export const QuizForm: FC = () => {
 	const {
 		register,
 		handleSubmit,
-		watch,
 		formState: { errors },
 	} = useForm<QuizFormProps>();
 
