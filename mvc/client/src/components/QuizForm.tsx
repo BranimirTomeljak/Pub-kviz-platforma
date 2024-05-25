@@ -21,8 +21,6 @@ export const QuizForm: FC = () => {
 	} = useForm<QuizFormProps>();
 
 	const onSubmit = (values: QuizFormProps) => {
-		console.log(values);
-
 		fetch("http://localhost:3001/quiz/create", {
 			method: "POST",
 			headers: {

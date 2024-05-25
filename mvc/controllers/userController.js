@@ -14,8 +14,8 @@ exports.createUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    const user = await db.Korisnik.findOne({ where: { id: id } });
+    const { email } = req.params;
+    const user = await db.Korisnik.findOne({ where: { email: email } });
     if (user) {
       res.status(200).json({ user });
     } else {
