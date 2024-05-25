@@ -6,12 +6,13 @@ import {
 	AccordionPanel,
 	Box,
 	Button,
+	Heading,
 	Table,
 	Tbody,
 	Td,
-	Text,
 	Th,
 	Thead,
+	Text,
 	Tr,
 } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
@@ -26,6 +27,9 @@ interface IQuizData {
 	opis: string;
 	status: number;
 	trajanje: number;
+	Pripadas: Array<{
+		Zapi: { brojbodova: number; rednibrojkruga: number; idtima: number };
+	}>;
 }
 
 export const QuizTable: FC = () => {
@@ -37,6 +41,7 @@ export const QuizTable: FC = () => {
 				const response = await fetch("http://localhost:3001/quiz/znj4");
 				const data = await response.json();
 				setData(data.quizes);
+				console.log(data.quizes[0].Pripadas);
 			} catch (error) {
 				console.error(error);
 			}
@@ -82,7 +87,39 @@ export const QuizTable: FC = () => {
 								</Tbody>
 							</Table>
 
-							<Button>Dodaj zapis</Button>
+							<Button mb={8}>Dodaj zapis</Button>
+
+							<Heading>Zapisi:</Heading>
+							{Array.from(
+								{ length: quiz.brojkrugova },
+								(_, index) => index + 1
+							).map((krug) => {
+								return (
+									<>
+										<Text>{krug}. krug</Text>
+										<Table>
+											<Thead>
+												<Tr>
+													<Th>Tim</Th>
+													<Th>Broj Bodova</Th>
+												</Tr>
+											</Thead>
+											<Tbody>
+												{quiz.Pripadas.map((pripada) => {
+													if (pripada.Zapi.rednibrojkruga === krug) {
+														return (
+															<Tr>
+																<Td>{pripada.Zapi.brojbodova}</Td>
+																<Td>{pripada.Zapi.idtima}</Td>
+															</Tr>
+														);
+													}
+												})}
+											</Tbody>
+										</Table>
+									</>
+								);
+							})}
 						</AccordionPanel>
 					</AccordionItem>
 				);
