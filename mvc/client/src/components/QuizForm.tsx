@@ -33,7 +33,8 @@ export const QuizForm: FC = () => {
 					label="Naziv kviza"
 					errors={errors}
 					{...register("naziv", { required: "Potreban naziv" })}
-				></InputField>
+				/>
+				<button type="submit">Submit</button>
 			</form>
 		</>
 	);
