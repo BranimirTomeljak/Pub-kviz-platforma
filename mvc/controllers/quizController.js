@@ -30,7 +30,7 @@ exports.editQuiz = async (req, res) => {
 exports.getQuiz = async (req, res) => {
   try {
     const { id } = req.params;
-    const quiz = await db.Kviz.findOne({ 
+    const quiz = await db.Kviz.findOne({
       where: { id: id },
       include: [{
         model: db.Pripada,
@@ -56,6 +56,9 @@ exports.getQuizes = async (req, res) => {
         model: db.Pripada,
         include: [{
           model: db.Zapis,
+          include: [{
+            model: db.Tim,
+          }]
         }]
       }]
     });

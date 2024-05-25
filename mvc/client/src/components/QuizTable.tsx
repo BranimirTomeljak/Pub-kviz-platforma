@@ -28,7 +28,11 @@ interface IQuizData {
 	status: number;
 	trajanje: number;
 	Pripadas: Array<{
-		Zapi: { brojbodova: number; rednibrojkruga: number; idtima: number };
+		Zapi: {
+			brojbodova: number;
+			rednibrojkruga: number;
+			Tim: { naziv: string };
+		};
 	}>;
 }
 
@@ -41,7 +45,6 @@ export const QuizTable: FC = () => {
 				const response = await fetch("http://localhost:3001/quiz/znj4");
 				const data = await response.json();
 				setData(data.quizes);
-				console.log(data.quizes[0].Pripadas);
 			} catch (error) {
 				console.error(error);
 			}
@@ -110,7 +113,7 @@ export const QuizTable: FC = () => {
 														return (
 															<Tr>
 																<Td>{pripada.Zapi.brojbodova}</Td>
-																<Td>{pripada.Zapi.idtima}</Td>
+																<Td>{pripada.Zapi.Tim.naziv}</Td>
 															</Tr>
 														);
 													}
