@@ -46,9 +46,26 @@ exports.getRecord = async (req, res) => {
 
 exports.getRecords = async (req, res) => {
   try {
-    const { kvizId } = req.params;
-    const records = await db.Zapis.findAll({ where: { kvizId: kvizId } });
-    res.status(200).json({ records });
+    const { idKviza } = req.params;
+    const kviz = await db.Kviz.findOne({ 
+      where: { id: idKviza },
+      include: [{
+        model: db.Pripada,
+        include: [{
+          model: db.Zapis,
+        }]
+      }]
+    });
+    if (kviz) {
+      const records = kviz.Pripadas.map(pripada => ({
+        idzapisa: pripada.idzapisa,
+        idkviza: pripada.idkviza,
+        Zapi: pripada.Zapi
+      }));
+      res.status(200).json(records);
+    } else {
+      res.status(404).send("Records not found");
+    }
   } catch (error) {
     logger.error(error.message);
     res.status(500).send(error.message);

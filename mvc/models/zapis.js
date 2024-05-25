@@ -7,15 +7,15 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
       },
-      redniBrojKruga: {
+      rednibrojkruga: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      brojBodova: {
+      brojbodova: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      idTima: {
+      idtima: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Zapis.associate = (models) => {
-    Zapis.belongsTo(models.Tim, { foreignKey: "idTima" });
+    Zapis.belongsTo(models.Tim, { foreignKey: "idtima" });
   };
 
   return Zapis;

@@ -30,4 +30,10 @@ db.Pripada = require("./pripada")(sequelize, Sequelize);
 db.Pregledava = require("./pregledava")(sequelize, Sequelize);
 db.OdrzavanjeKviza = require("./odrzavanjeKviza")(sequelize, Sequelize);
 
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
 module.exports = db;

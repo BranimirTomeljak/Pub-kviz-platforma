@@ -11,7 +11,7 @@ router.use('/place', placeRoutes);
 router.use('/quiz', quizRoutes);
 router.use('/record', recordRoutes);
 router.use('/team', teamRoutes);
-router.use('/users', userRoutes);
+router.use('/user', userRoutes);
 
 router.get('/', (req, res) => {
   res.render('index');
