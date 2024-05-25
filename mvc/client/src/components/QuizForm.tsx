@@ -22,6 +22,14 @@ export const QuizForm: FC = () => {
 
 	const onSubmit = (values: QuizFormProps) => {
 		console.log(values);
+
+		fetch("http://localhost:3001/quiz/create", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ ...values, status: 0 }),
+		});
 	};
 
 	return (
