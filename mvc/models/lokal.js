@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      idVlasnikaLokala: {
+      idvlasnikalokala: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Lokal.associate = (models) => {
-    Lokal.belongsTo(models.VlasnikLokala, { foreignKey: "idVlasnikaLokala" });
+    Lokal.belongsTo(models.VlasnikLokala, { foreignKey: "idvlasnikalokala" });
   };
 
   return Lokal;

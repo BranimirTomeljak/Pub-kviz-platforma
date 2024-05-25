@@ -14,10 +14,10 @@ exports.createUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   try {
-    const { id } = req.body;
-    const user = await db.Korisnik.findByPk(id);
+    const { id } = req.params;
+    const user = await db.Korisnik.findOne({ where: { id: id } });
     if (user) {
-      res.json(user);
+      res.status(200).json({ user });
     } else {
       res.status(404).send("User not found");
     }
@@ -29,7 +29,7 @@ exports.getUser = async (req, res) => {
 exports.getUsers = async (req, res) => {
   try {
     const users = await db.Korisnik.findAll();
-    res.render("users", { users });
+    res.status(200).json({ users });
   } catch (error) {
     res.status(500).send(error.message);
   }

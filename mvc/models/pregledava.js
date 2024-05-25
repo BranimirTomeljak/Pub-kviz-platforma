@@ -2,13 +2,15 @@ module.exports = (sequelize, DataTypes) => {
   const Pregledava = sequelize.define(
     "Pregledava",
     {
-      idNatjecatelja: {
+      idnatjecatelja: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
-      idZapisa: {
+      idzapisa: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
     },
     {
@@ -18,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Pregledava.associate = (models) => {
-    Pregledava.belongsTo(models.Natjecatelj, { foreignKey: "idNatjecatelja" });
-    Pregledava.belongsTo(models.Zapis, { foreignKey: "idZapisa" });
+    Pregledava.belongsTo(models.Natjecatelj, { foreignKey: "idnatjecatelja" });
+    Pregledava.belongsTo(models.Zapis, { foreignKey: "idzapisa" });
   };
 
   return Pregledava;

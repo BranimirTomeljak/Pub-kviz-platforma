@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      maxBrojTimova: {
+      maxbrojtimova: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      maxVelicinaTima: {
+      maxvelicinatima: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      brojKrugova: {
+      brojkrugova: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -45,6 +45,10 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
     }
   );
+
+  Kviz.associate = (models) => {
+    Kviz.hasMany(models.Pripada, { foreignKey: "idkviza" });
+  };
 
   return Kviz;
 };

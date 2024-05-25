@@ -30,7 +30,15 @@ exports.editQuiz = async (req, res) => {
 exports.getQuiz = async (req, res) => {
   try {
     const { id } = req.params;
-    const quiz = await db.Kviz.findOne({ where: { id: id } });
+    const quiz = await db.Kviz.findOne({ 
+      where: { id: id },
+      include: [{
+        model: db.Pripada,
+        include: [{
+          model: db.Zapis,
+        }]
+      }]
+    });
     if (quiz) {
       res.status(200).json({ quiz });
     } else {
@@ -43,7 +51,14 @@ exports.getQuiz = async (req, res) => {
 
 exports.getQuizes = async (req, res) => {
   try {
-    const quizes = await db.Kviz.findAll();
+    const quizes = await db.Kviz.findAll({
+      include: [{
+        model: db.Pripada,
+        include: [{
+          model: db.Zapis,
+        }]
+      }]
+    });
     res.status(200).json({ quizes });
   } catch (error) {
     res.status(500).send(error.message);

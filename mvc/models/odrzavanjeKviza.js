@@ -5,14 +5,17 @@ module.exports = (sequelize, DataTypes) => {
       idKviza: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
       idOrganizatora: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
       idLokala: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
     },
     {
@@ -22,11 +25,11 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   OdrzavanjeKviza.associate = (models) => {
-    OdrzavanjeKviza.belongsTo(models.Kviz, { foreignKey: "idKviza" });
+    OdrzavanjeKviza.belongsTo(models.Kviz, { foreignKey: "idkviza" });
     OdrzavanjeKviza.belongsTo(models.Organizator, {
-      foreignKey: "idOrganizatora",
+      foreignKey: "idorganizatora",
     });
-    OdrzavanjeKviza.belongsTo(models.Lokal, { foreignKey: "idLokala" });
+    OdrzavanjeKviza.belongsTo(models.Lokal, { foreignKey: "idlokala" });
   };
 
   return OdrzavanjeKviza;

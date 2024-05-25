@@ -15,15 +15,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      pocetniDatum: {
+      pocetnidatum: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      krajnjiDatum: {
+      krajnjidatum: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      idOrganizatora: {
+      idorganizatora: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Liga.associate = (models) => {
-    Liga.belongsTo(models.Organizator, { foreignKey: "idOrganizatora" });
+    Liga.belongsTo(models.Organizator, { foreignKey: "idorganizatora" });
   };
 
   return Liga;
