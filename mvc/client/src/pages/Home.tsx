@@ -6,7 +6,7 @@ export const Home: FC = () => {
 	return (
 		<>
 			<Navigation />
-			{/* <QuizForm></QuizForm> */}
+			<QuizForm></QuizForm>
 		</>
 	);
 };

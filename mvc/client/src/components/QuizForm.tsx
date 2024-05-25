@@ -1,16 +1,17 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
 import { InputField } from "./InputField";
+import { Box, Button } from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
 
-type QuizFormProps = {
+interface QuizFormProps {
 	naziv: string;
 	opis: string;
-	maxBrojTimova: number;
-	maxVelicinaTima: number;
+	maxbrojtimova: number;
+	maxvelicinatima: number;
 	datum: Date;
 	trajanje: number;
-	brojKrugova: number;
-};
+	brojkrugova: number;
+}
 
 export const QuizForm: FC = () => {
 	const {
@@ -19,23 +20,79 @@ export const QuizForm: FC = () => {
 		formState: { errors },
 	} = useForm<QuizFormProps>();
 
-	const onSubmit = (data: QuizFormProps) => {
-		console.log(data);
+	const onSubmit = (values: QuizFormProps) => {
+		console.log(values);
 	};
 
 	return (
 		<>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<InputField
-					type="text"
-					isRequired
-					placeholder="Naziv kviza"
-					label="Naziv kviza"
-					errors={errors}
-					{...register("naziv", { required: "Potreban naziv" })}
-				/>
-				<button type="submit">Submit</button>
-			</form>
+			<Box padding="10">
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<InputField
+						mb={4}
+						type="text"
+						placeholder="Naziv kviza"
+						label="Naziv kviza"
+						errors={errors}
+						{...register("naziv", { required: "Ovo polje je obavezno" })}
+					/>
+					<InputField
+						mb={4}
+						type="text"
+						placeholder="Opis kviza"
+						label="Opis kviza"
+						errors={errors}
+						{...register("opis", { required: "Ovo polje je obavezno" })}
+					/>
+					<InputField
+						mb={4}
+						type="number"
+						placeholder="Maksimalan broj timova"
+						label="Maksimalan broj timova"
+						errors={errors}
+						{...register("maxbrojtimova", {
+							required: "Ovo polje je obavezno",
+						})}
+					/>
+					<InputField
+						mb={4}
+						type="number"
+						placeholder="Maksimalna velicina tima"
+						label="Maksimalna velicina tima"
+						errors={errors}
+						{...register("maxvelicinatima", {
+							required: "Ovo polje je obavezno",
+						})}
+					/>
+					<InputField
+						mb={4}
+						type="date"
+						placeholder="Datum kviza"
+						label="Datum kviza"
+						errors={errors}
+						{...register("datum", { required: "Ovo polje je obavezno" })}
+					/>
+					<InputField
+						mb={4}
+						type="number"
+						placeholder="Trajanje kviza"
+						label="Trajanje kviza"
+						errors={errors}
+						{...register("trajanje", { required: "Ovo polje je obavezno" })}
+					/>
+					<InputField
+						mb={4}
+						type="number"
+						placeholder="Broj krugova"
+						label="Broj krugova"
+						errors={errors}
+						{...register("brojkrugova", { required: "Ovo polje je obavezno" })}
+					/>
+					<Button type="submit" mt={4}>
+						Submit
+					</Button>
+				</form>
+			</Box>
 		</>
 	);
 };
