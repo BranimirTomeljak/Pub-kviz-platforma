@@ -57,7 +57,7 @@ exports.getQuizes = async (req, res) => {
   try {
     const { naziv } = req.query;
 
-    const whereClause = naziv ? { naziv: { [Op.like]: `%${naziv}%` } } : {};
+    const whereClause = naziv ? { naziv: { [Op.iLike]: `%${naziv}%` } } : {};
 
     const quizes = await db.Kviz.findAll({
       where: whereClause,
