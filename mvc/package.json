@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "seed": "node config/seed.js",
     "start": "node app.js",
     "dev": "nodemon app.js",
     "test_models": "jest models/test",
