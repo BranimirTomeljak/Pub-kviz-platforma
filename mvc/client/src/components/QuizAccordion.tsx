@@ -133,7 +133,9 @@ export const QuizAccordion: FC<{ quiz: IQuizData; setTrigger: () => void }> = ({
 										<Tr>
 											<Th>Tim</Th>
 											<Th>Broj Bodova</Th>
-											{quiz.status === 1 && <Th>Akcije</Th>}
+											{user?.email ===
+												quiz.OdrzavanjeKvizas[0].Organizator.Korisnik.email &&
+												quiz.status === 1 && <Th>Akcije</Th>}
 										</Tr>
 									</Thead>
 									<Tbody>
@@ -143,15 +145,20 @@ export const QuizAccordion: FC<{ quiz: IQuizData; setTrigger: () => void }> = ({
 													<Tr>
 														<Td>{pripada.Zapi.brojbodova}</Td>
 														<Td>{pripada.Zapi.Tim.naziv}</Td>
-														{quiz.status === 1 && (
-															<Td>
-																<Button
-																	onClick={() => deleteRecord(pripada.idzapisa)}
-																>
-																	Obrisi zapis
-																</Button>
-															</Td>
-														)}
+														{user?.email ===
+															quiz.OdrzavanjeKvizas[0].Organizator.Korisnik
+																.email &&
+															quiz.status === 1 && (
+																<Td>
+																	<Button
+																		onClick={() =>
+																			deleteRecord(pripada.idzapisa)
+																		}
+																	>
+																		Obrisi zapis
+																	</Button>
+																</Td>
+															)}
 													</Tr>
 												);
 											}
