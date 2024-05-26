@@ -65,7 +65,7 @@ export const QuizTable: FC = () => {
 					})
 					.map((quiz) => {
 						return (
-							<AccordionItem>
+							<AccordionItem key={`quiz${quiz.id}`}>
 								<AccordionButton>
 									<Box as="span" flex="1" textAlign="left">
 										{quiz.naziv}
