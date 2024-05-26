@@ -1,10 +1,11 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { Navigation } from "../components/Navigation";
 import { QuizForm } from "../components/QuizForm";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const Home: FC = () => {
 	const { user } = useAuth0();
+	const [userId, setUserId] = useState<any>(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -15,7 +16,7 @@ export const Home: FC = () => {
 
 				const a = await result.json();
 
-				console.log(a);
+				setUserId(a.user.id);
 			} catch (error) {
 				if (user) {
 					fetch("http://localhost:3001/user", {
@@ -37,7 +38,7 @@ export const Home: FC = () => {
 	return (
 		<>
 			<Navigation />
-			{user && <QuizForm />}
+			{user && <QuizForm userId={userId} />}
 		</>
 	);
 };

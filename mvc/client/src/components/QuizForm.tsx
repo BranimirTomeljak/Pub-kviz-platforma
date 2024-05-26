@@ -13,7 +13,7 @@ interface QuizFormProps {
 	brojkrugova: number;
 }
 
-export const QuizForm: FC = () => {
+export const QuizForm: FC<{ userId: any }> = ({ userId }) => {
 	const {
 		register,
 		handleSubmit,
@@ -26,7 +26,7 @@ export const QuizForm: FC = () => {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ ...values, status: 0 }),
+			body: JSON.stringify({ ...values, status: 0, userId }),
 		});
 	};
 

@@ -5,23 +5,19 @@ import {
 	AccordionItem,
 	AccordionPanel,
 	Box,
-	Heading,
-	Table,
-	Tbody,
-	Td,
+	Checkbox,
 	Input,
-	Th,
-	Thead,
-	Text,
-	Tr,
 } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import { IQuizData } from "../interfaces/IQuizData";
 import { QuizAccordion } from "./QuizAccordion";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const QuizTable: FC = () => {
 	const [data, setData] = useState<Array<IQuizData>>([]);
 	const [filter, setFilter] = useState<string>("");
+	const [showUserQuizes, setShowUserQuizes] = useState<boolean>(false);
+	const { user } = useAuth0();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -49,23 +45,33 @@ export const QuizTable: FC = () => {
 						setFilter(event.target.value);
 					}}
 				/>
+				<Checkbox onChange={(event) => setShowUserQuizes(event.target.checked)}>
+					Prikazi samo vlastite kvizove
+				</Checkbox>
 			</Box>
 			<Accordion allowToggle>
-				{data.map((quiz) => {
-					return (
-						<AccordionItem>
-							<AccordionButton>
-								<Box as="span" flex="1" textAlign="left">
-									{quiz.naziv}
-								</Box>
-								<AccordionIcon />
-							</AccordionButton>
-							<AccordionPanel>
-								<QuizAccordion quiz={quiz} />
-							</AccordionPanel>
-						</AccordionItem>
-					);
-				})}
+				{data
+					.filter((quiz) => {
+						if (!showUserQuizes) {
+							return true;
+						}
+						return false;
+					})
+					.map((quiz) => {
+						return (
+							<AccordionItem>
+								<AccordionButton>
+									<Box as="span" flex="1" textAlign="left">
+										{quiz.naziv}
+									</Box>
+									<AccordionIcon />
+								</AccordionButton>
+								<AccordionPanel>
+									<QuizAccordion quiz={quiz} />
+								</AccordionPanel>
+							</AccordionItem>
+						);
+					})}
 			</Accordion>
 		</>
 	);
