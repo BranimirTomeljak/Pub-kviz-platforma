@@ -2,12 +2,12 @@ module.exports = (sequelize, DataTypes) => {
   const NatjeceSe = sequelize.define(
     "NatjeceSe",
     {
-      idTima: {
+      idtima: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      idLige: {
+      idlige: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,

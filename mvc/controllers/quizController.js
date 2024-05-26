@@ -2,10 +2,17 @@ const db = require("../models");
 const logger = require("../config/logger");
 const { Op } = require("sequelize");
 
-exports.createQuiz = async (req, res) => {
+exports.createQuiz = async (req, res) => { // updateat i odrazavanjeKviza, lokal id je 1
   try {
     const newQuiz = await db.Kviz.create(req.body);
-    res.status(201).json(newQuiz);
+
+    const newOdrzavanjeKviza = await db.OdrzavanjeKviza.create({
+      idkviza: newQuiz.id,
+      idorganizatora: req.body.userId,
+      idlokala: 1
+    });
+
+    res.status(201).json({ newQuiz, newOdrzavanjeKviza });
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -69,7 +76,17 @@ exports.getQuizes = async (req, res) => {
             model: db.Tim,
           }]
         }]
-      }]
+      },
+      {
+        model: db.OdrzavanjeKviza,
+        include: [{
+          model: db.Organizator,
+          include: [{
+            model: db.Korisnik
+          }]
+        }]
+      }
+    ]
     });
     res.status(200).json({ quizes });
   } catch (error) {

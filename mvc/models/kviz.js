@@ -48,6 +48,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Kviz.associate = (models) => {
     Kviz.hasMany(models.Pripada, { foreignKey: "idkviza" });
+    Kviz.hasMany(models.OdrzavanjeKviza, { foreignKey: "idkviza" });
   };
 
   return Kviz;
