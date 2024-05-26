@@ -14,6 +14,7 @@ import {
 import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { InputField } from "./InputField";
+import { on } from "events";
 
 interface IRecordData {
 	rednibrojkruga: number;
@@ -26,10 +27,11 @@ interface ITeamData {
 	naziv: string;
 }
 
-export const RecordButton: FC<{ quizId: number; brojkrugova: number }> = ({
-	quizId,
-	brojkrugova,
-}) => {
+export const RecordButton: FC<{
+	quizId: number;
+	brojkrugova: number;
+	onSuccess: () => void;
+}> = ({ quizId, brojkrugova, onSuccess }) => {
 	const {
 		register,
 		handleSubmit,
@@ -66,6 +68,7 @@ export const RecordButton: FC<{ quizId: number; brojkrugova: number }> = ({
 				});
 
 				if (response.ok) {
+					onSuccess();
 					onClose();
 				}
 			} catch (error) {}

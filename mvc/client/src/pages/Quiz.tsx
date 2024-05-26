@@ -11,18 +11,19 @@ import {
 	Th,
 	Thead,
 	Tr,
-	Text,
-	Button,
 } from "@chakra-ui/react";
 import { RecordButton } from "../components/RecordButton";
 
 export const Quiz: FC = () => {
 	const { id } = useParams();
 	const [quiz, setQuiz] = useState<IQuizData>();
+	const [trigger, setTrigger] = useState<boolean>(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
+				if (trigger) {
+				}
 				const result = await fetch(`http://localhost:3001/quiz/znj3/${id}`);
 				const a = await result.json();
 
@@ -33,7 +34,7 @@ export const Quiz: FC = () => {
 		};
 
 		fetchData();
-	}, [id]);
+	}, [id, trigger]);
 
 	return (
 		<>
@@ -67,7 +68,13 @@ export const Quiz: FC = () => {
 						</Tbody>
 					</Table>
 
-					<RecordButton quizId={quiz.id} brojkrugova={quiz.brojkrugova} />
+					<RecordButton
+						quizId={quiz.id}
+						brojkrugova={quiz.brojkrugova}
+						onSuccess={() => {
+							setTrigger(!trigger);
+						}}
+					/>
 
 					<Heading mb={8}>Zapisi:</Heading>
 					{Array.from(
@@ -94,6 +101,8 @@ export const Quiz: FC = () => {
 													</Tr>
 												);
 											}
+
+											return null;
 										})}
 									</Tbody>
 								</Table>
