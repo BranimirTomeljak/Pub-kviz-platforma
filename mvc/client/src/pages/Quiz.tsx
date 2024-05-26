@@ -4,6 +4,7 @@ import { Navigation } from "../components/Navigation";
 import { IQuizData } from "../interfaces/IQuizData";
 import {
 	Box,
+	Button,
 	Heading,
 	Table,
 	Tbody,
@@ -35,6 +36,30 @@ export const Quiz: FC = () => {
 
 		fetchData();
 	}, [id, trigger]);
+
+	const updateQuizState = async () => {
+		const fetchData = async () => {
+			try {
+				const newStatus = quiz?.status === 0 ? 1 : 2;
+				const response = await fetch(
+					`http://localhost:3001/quiz/edit/${quiz?.id}`,
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({ status: newStatus }),
+					}
+				);
+
+				if (response.ok) {
+					setTrigger(!trigger);
+				}
+			} catch (error) {}
+		};
+
+		fetchData();
+	};
 
 	return (
 		<>
@@ -68,13 +93,24 @@ export const Quiz: FC = () => {
 						</Tbody>
 					</Table>
 
-					<RecordButton
-						quizId={quiz.id}
-						brojkrugova={quiz.brojkrugova}
-						onSuccess={() => {
-							setTrigger(!trigger);
-						}}
-					/>
+					{quiz.status === 0 && (
+						<Button onClick={updateQuizState}>Zapocni kviz</Button>
+					)}
+
+					{quiz.status === 1 && (
+						<Box>
+							<RecordButton
+								quizId={quiz.id}
+								brojkrugova={quiz.brojkrugova}
+								onSuccess={() => {
+									setTrigger(!trigger);
+								}}
+							/>
+							<Button onClick={updateQuizState} ml={8}>
+								Zavrsi kviz
+							</Button>
+						</Box>
+					)}
 
 					<Heading mb={8}>Zapisi:</Heading>
 					{Array.from(
