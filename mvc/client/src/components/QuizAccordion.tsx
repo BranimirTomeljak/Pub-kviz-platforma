@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { IQuizData } from "../interfaces/IQuizData";
 import {
 	Box,
@@ -14,8 +14,10 @@ import {
 import { RecordButton } from "./RecordButton";
 import { useAuth0 } from "@auth0/auth0-react";
 
-export const QuizAccordion: FC<{ quiz: IQuizData }> = ({ quiz }) => {
-	const [trigger, setTrigger] = useState<boolean>(false);
+export const QuizAccordion: FC<{ quiz: IQuizData; setTrigger: () => void }> = ({
+	quiz,
+	setTrigger,
+}) => {
 	const { user } = useAuth0();
 
 	const updateQuizState = async () => {
@@ -34,7 +36,29 @@ export const QuizAccordion: FC<{ quiz: IQuizData }> = ({ quiz }) => {
 				);
 
 				if (response.ok) {
-					setTrigger(!trigger);
+					setTrigger();
+				}
+			} catch (error) {}
+		};
+
+		fetchData();
+	};
+
+	const deleteRecord = async (recordId: number) => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch(
+					`http://localhost:3001/record/znj5/${recordId}`,
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				);
+
+				if (response.ok) {
+					setTrigger();
 				}
 			} catch (error) {}
 		};
@@ -85,7 +109,7 @@ export const QuizAccordion: FC<{ quiz: IQuizData }> = ({ quiz }) => {
 									quizId={quiz.id}
 									brojkrugova={quiz.brojkrugova}
 									onSuccess={() => {
-										setTrigger(!trigger);
+										setTrigger();
 									}}
 								/>
 								<Button onClick={updateQuizState} ml={8}>
@@ -109,6 +133,7 @@ export const QuizAccordion: FC<{ quiz: IQuizData }> = ({ quiz }) => {
 										<Tr>
 											<Th>Tim</Th>
 											<Th>Broj Bodova</Th>
+											{quiz.status === 1 && <Th>Akcije</Th>}
 										</Tr>
 									</Thead>
 									<Tbody>
@@ -118,6 +143,15 @@ export const QuizAccordion: FC<{ quiz: IQuizData }> = ({ quiz }) => {
 													<Tr>
 														<Td>{pripada.Zapi.brojbodova}</Td>
 														<Td>{pripada.Zapi.Tim.naziv}</Td>
+														{quiz.status === 1 && (
+															<Td>
+																<Button
+																	onClick={() => deleteRecord(pripada.idzapisa)}
+																>
+																	Obrisi zapis
+																</Button>
+															</Td>
+														)}
 													</Tr>
 												);
 											}

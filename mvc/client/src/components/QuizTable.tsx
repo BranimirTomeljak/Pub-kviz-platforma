@@ -17,11 +17,14 @@ export const QuizTable: FC = () => {
 	const [data, setData] = useState<Array<IQuizData>>([]);
 	const [filter, setFilter] = useState<string>("");
 	const [showUserQuizes, setShowUserQuizes] = useState<boolean>(false);
+	const [trigger, setTrigger] = useState<boolean>(false);
 	const { user } = useAuth0();
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
+				if (trigger) {
+				}
 				const response = await fetch(
 					`http://localhost:3001/quiz/znj4?naziv=${filter}`
 				);
@@ -33,7 +36,7 @@ export const QuizTable: FC = () => {
 		};
 
 		fetchData();
-	}, [filter]);
+	}, [filter, trigger]);
 
 	return (
 		<>
@@ -73,7 +76,13 @@ export const QuizTable: FC = () => {
 									<AccordionIcon />
 								</AccordionButton>
 								<AccordionPanel>
-									<QuizAccordion quiz={quiz} />
+									<QuizAccordion
+										quiz={quiz}
+										setTrigger={() => {
+											console.log("trigger", trigger);
+											setTrigger(!trigger);
+										}}
+									/>
 								</AccordionPanel>
 							</AccordionItem>
 						);

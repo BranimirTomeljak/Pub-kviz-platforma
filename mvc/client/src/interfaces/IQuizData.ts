@@ -14,6 +14,7 @@ export interface IQuizData {
 			rednibrojkruga: number;
 			Tim: { naziv: string };
 		};
+		idzapisa: number;
 	}>;
 	OdrzavanjeKvizas: Array<{
 		idkviza: number;
