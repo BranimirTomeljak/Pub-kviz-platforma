@@ -55,6 +55,12 @@ export const QuizTable: FC = () => {
 						if (!showUserQuizes) {
 							return true;
 						}
+						if (user) {
+							return (
+								user.email ===
+								quiz.OdrzavanjeKvizas[0].Organizator?.Korisnik.email
+							);
+						}
 						return false;
 					})
 					.map((quiz) => {

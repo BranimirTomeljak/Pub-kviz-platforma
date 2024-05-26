@@ -15,4 +15,10 @@ export interface IQuizData {
 			Tim: { naziv: string };
 		};
 	}>;
+	OdrzavanjeKvizas: Array<{
+		idkviza: number;
+		idlokala: number;
+		idorganizatora: number;
+		Organizator: { id: number; Korisnik: { id: number; email: string } };
+	}>;
 }
