@@ -2,17 +2,17 @@ module.exports = (sequelize, DataTypes) => {
   const OdrzavanjeKviza = sequelize.define(
     "OdrzavanjeKviza",
     {
-      idKviza: {
+      idkviza: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      idOrganizatora: {
+      idorganizatora: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      idLokala: {
+      idlokala: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,

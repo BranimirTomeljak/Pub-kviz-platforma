@@ -4,8 +4,8 @@ const logger = require("../config/logger");
 exports.createRecord = async (req, res) => {
   try {
     const newRecord = await db.Zapis.create(req.body);
-    await db.Pripada.create({ idzapisa: newRecord.id, idkviza: req.body.idkviza });
-    res.status(201).json(newRecord);
+    const newPripada = await db.Pripada.create({ idzapisa: newRecord.id, idkviza: req.body.idkviza });
+    res.status(201).json({ newRecord, newPripada });
   } catch (error) {
     logger.error(error.message);
     res.status(500).send(error.message);
