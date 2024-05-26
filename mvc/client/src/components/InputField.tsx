@@ -19,7 +19,11 @@ export interface IInputField extends InputProps {
 export const InputField = forwardRef<HTMLInputElement, IInputField>(
 	({ errors, name, label, isRequired = false, ...rest }, ref) => {
 		return (
-			<FormControl id={name} isRequired={isRequired}>
+			<FormControl
+				id={name}
+				isRequired={isRequired}
+				isInvalid={Boolean(errors?.[name])}
+			>
 				{label && <FormLabel htmlFor={name}>{label}</FormLabel>}
 				<Input ref={ref} name={name} {...rest} />
 				<FormErrorMessage>
