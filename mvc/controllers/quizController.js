@@ -2,7 +2,7 @@ const db = require("../models");
 const logger = require("../config/logger");
 const { Op } = require("sequelize");
 
-exports.createQuiz = async (req, res) => { // updateat i odrazavanjeKviza, lokal id je 1
+exports.createQuiz = async (req, res) => {
   try {
     const newQuiz = await db.Kviz.create(req.body);
 
