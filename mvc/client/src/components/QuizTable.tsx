@@ -16,25 +16,7 @@ import {
 	Tr,
 } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
-
-interface IQuizData {
-	brojkrugova: number;
-	datum: string;
-	id: number;
-	maxbrojtimova: number;
-	maxvelicinatima: number;
-	naziv: string;
-	opis: string;
-	status: number;
-	trajanje: number;
-	Pripadas: Array<{
-		Zapi: {
-			brojbodova: number;
-			rednibrojkruga: number;
-			Tim: { naziv: string };
-		};
-	}>;
-}
+import { IQuizData } from "../interfaces/IQuizData";
 
 export const QuizTable: FC = () => {
 	const [data, setData] = useState<Array<IQuizData>>([]);

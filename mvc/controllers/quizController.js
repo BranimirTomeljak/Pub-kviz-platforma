@@ -36,6 +36,9 @@ exports.getQuiz = async (req, res) => {
         model: db.Pripada,
         include: [{
           model: db.Zapis,
+          include: [{
+            model: db.Tim,
+          }]
         }]
       }]
     });

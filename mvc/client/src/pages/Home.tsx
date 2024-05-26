@@ -10,7 +10,7 @@ export const Home: FC = () => {
 		const fetchData = async () => {
 			try {
 				const result = await fetch(
-					`http://localhost:3001/user?email=${user?.email}`
+					`http://localhost:3001/user/znj/${user?.email}`
 				);
 
 				const a = await result.json();
@@ -37,7 +37,7 @@ export const Home: FC = () => {
 	return (
 		<>
 			<Navigation />
-			<QuizForm></QuizForm>
+			{user && <QuizForm />}
 		</>
 	);
 };

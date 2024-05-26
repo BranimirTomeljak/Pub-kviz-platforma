@@ -4,6 +4,7 @@ const logger = require("../config/logger");
 exports.createRecord = async (req, res) => {
   try {
     const newRecord = await db.Zapis.create(req.body);
+    await db.Pripada.create({ idzapisa: newRecord.id, idkviza: req.body.idkviza });
     res.status(201).json(newRecord);
   } catch (error) {
     logger.error(error.message);
@@ -47,7 +48,7 @@ exports.getRecord = async (req, res) => {
 exports.getRecords = async (req, res) => {
   try {
     const { idKviza } = req.params;
-    const kviz = await db.Kviz.findOne({ 
+    const kviz = await db.Kviz.findOne({
       where: { id: idKviza },
       include: [{
         model: db.Pripada,

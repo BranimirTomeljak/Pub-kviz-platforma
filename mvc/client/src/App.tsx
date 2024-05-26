@@ -4,6 +4,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Home } from "./pages/Home";
 import { Quizes } from "./pages/Quizes";
+import { Quiz } from "./pages/Quiz";
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/quizes" element={<Quizes />}></Route>
+						<Route path="/quiz/:id" element={<Quiz />}></Route>
 					</Routes>
 				</Router>
 			</ChakraProvider>
