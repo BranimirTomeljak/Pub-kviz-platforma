@@ -76,6 +76,9 @@ exports.getRecords = async (req, res) => {
 exports.deleteRecord = async (req, res) => {
   try {
     const { id } = req.params;
+    const deletedPripada = await db.Pripada.destroy({
+      where: { idzapisa: id },
+    });
     const deleted = await db.Zapis.destroy({
       where: { id: id },
     });

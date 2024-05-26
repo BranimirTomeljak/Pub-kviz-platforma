@@ -1,6 +1,6 @@
 const db = require("../models");
 const logger = require("../config/logger");
-const { Op } = require("sequelize");
+const { Op, or } = require("sequelize");
 
 exports.createQuiz = async (req, res) => {
   try {
@@ -86,7 +86,7 @@ exports.getQuizes = async (req, res) => {
           }]
         }]
       }
-      ]
+      ], order: [['id', 'ASC']]
     });
     res.status(200).json({ quizes });
   } catch (error) {

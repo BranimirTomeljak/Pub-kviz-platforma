@@ -139,7 +139,7 @@ export const RecordButton: FC<{
 								<FormLabel>Krug</FormLabel>
 								<Select
 									id="rednibrojkruga"
-									placeholder="Redni broj tima"
+									placeholder="Redni broj kruga"
 									{...register("rednibrojkruga", {
 										required: "Potrebno je odabrati krug",
 									})}
