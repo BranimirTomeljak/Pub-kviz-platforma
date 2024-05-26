@@ -26,6 +26,7 @@ export const QuizForm: FC<{ userId: any }> = ({ userId }) => {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<QuizFormProps>();
 	const [places, setPlaces] = useState<any>([]);
 	const toast = useToast();
@@ -50,6 +51,8 @@ export const QuizForm: FC<{ userId: any }> = ({ userId }) => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ ...values, status: 0, userId }),
+			}).finally(() => {
+				reset();
 			});
 		}
 	};
