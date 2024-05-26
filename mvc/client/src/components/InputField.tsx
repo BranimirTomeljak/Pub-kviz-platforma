@@ -1,12 +1,5 @@
 import { forwardRef } from "react";
-import {
-	FormControl,
-	FormLabel,
-	Input,
-	FormErrorMessage,
-	InputProps,
-} from "@chakra-ui/react";
-import { ErrorMessage } from "@hookform/error-message";
+import { FormControl, FormLabel, Input, InputProps } from "@chakra-ui/react";
 import { FieldValues } from "react-hook-form";
 
 export interface IInputField extends InputProps {
@@ -26,9 +19,6 @@ export const InputField = forwardRef<HTMLInputElement, IInputField>(
 			>
 				{label && <FormLabel htmlFor={name}>{label}</FormLabel>}
 				<Input ref={ref} name={name} {...rest} />
-				<FormErrorMessage>
-					<ErrorMessage errors={errors} name={name} />
-				</FormErrorMessage>
 			</FormControl>
 		);
 	}
