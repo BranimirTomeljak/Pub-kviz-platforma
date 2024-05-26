@@ -5,7 +5,6 @@ import {
 	AccordionItem,
 	AccordionPanel,
 	Box,
-	Button,
 	Heading,
 	Table,
 	Tbody,
@@ -18,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import { IQuizData } from "../interfaces/IQuizData";
+import { QuizAccordion } from "./QuizAccordion";
 
 export const QuizTable: FC = () => {
 	const [data, setData] = useState<Array<IQuizData>>([]);
@@ -61,62 +61,7 @@ export const QuizTable: FC = () => {
 								<AccordionIcon />
 							</AccordionButton>
 							<AccordionPanel>
-								<Table variant="simple" mb="8">
-									<Thead>
-										<Tr>
-											<Th>Datum</Th>
-											<Th>Opis</Th>
-											<Th>Trajanje</Th>
-											<Th>Status</Th>
-										</Tr>
-									</Thead>
-									<Tbody>
-										<Tr>
-											<Td>{quiz.datum}</Td>
-											<Td>{quiz.opis}</Td>
-											<Td>{quiz.trajanje}</Td>
-											<Td>
-												{quiz.status === 0
-													? "Neodrzan"
-													: quiz.status === 1
-													? "Traje"
-													: "Zavrsio"}
-											</Td>
-										</Tr>
-									</Tbody>
-								</Table>
-
-								<Heading>Zapisi:</Heading>
-								{Array.from(
-									{ length: quiz.brojkrugova },
-									(_, index) => index + 1
-								).map((krug) => {
-									return (
-										<>
-											<Text>{krug}. krug</Text>
-											<Table>
-												<Thead>
-													<Tr>
-														<Th>Tim</Th>
-														<Th>Broj Bodova</Th>
-													</Tr>
-												</Thead>
-												<Tbody>
-													{quiz.Pripadas.map((pripada) => {
-														if (pripada.Zapi.rednibrojkruga === krug) {
-															return (
-																<Tr>
-																	<Td>{pripada.Zapi.brojbodova}</Td>
-																	<Td>{pripada.Zapi.Tim.naziv}</Td>
-																</Tr>
-															);
-														}
-													})}
-												</Tbody>
-											</Table>
-										</>
-									);
-								})}
+								<QuizAccordion quiz={quiz} />
 							</AccordionPanel>
 						</AccordionItem>
 					);
