@@ -9,7 +9,7 @@ exports.createQuiz = async (req, res) => {
     const newOdrzavanjeKviza = await db.OdrzavanjeKviza.create({
       idkviza: newQuiz.id,
       idorganizatora: req.body.userId,
-      idlokala: 1
+      idlokala: req.body.idLokala
     });
 
     res.status(201).json({ newQuiz, newOdrzavanjeKviza });
@@ -86,7 +86,7 @@ exports.getQuizes = async (req, res) => {
           }]
         }]
       }
-    ]
+      ]
     });
     res.status(200).json({ quizes });
   } catch (error) {

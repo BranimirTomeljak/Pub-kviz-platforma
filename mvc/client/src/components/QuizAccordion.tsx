@@ -12,9 +12,11 @@ import {
 	Tr,
 } from "@chakra-ui/react";
 import { RecordButton } from "./RecordButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const QuizAccordion: FC<{ quiz: IQuizData }> = ({ quiz }) => {
 	const [trigger, setTrigger] = useState<boolean>(false);
+	const { user } = useAuth0();
 
 	const updateQuizState = async () => {
 		const fetchData = async () => {
@@ -69,24 +71,28 @@ export const QuizAccordion: FC<{ quiz: IQuizData }> = ({ quiz }) => {
 						</Tbody>
 					</Table>
 
-					{quiz.status === 0 && (
-						<Button onClick={updateQuizState}>Zapocni kviz</Button>
-					)}
+					{user?.email ===
+						quiz.OdrzavanjeKvizas[0].Organizator.Korisnik.email &&
+						quiz.status === 0 && (
+							<Button onClick={updateQuizState}>Zapocni kviz</Button>
+						)}
 
-					{quiz.status === 1 && (
-						<Box>
-							<RecordButton
-								quizId={quiz.id}
-								brojkrugova={quiz.brojkrugova}
-								onSuccess={() => {
-									setTrigger(!trigger);
-								}}
-							/>
-							<Button onClick={updateQuizState} ml={8}>
-								Zavrsi kviz
-							</Button>
-						</Box>
-					)}
+					{user?.email ===
+						quiz.OdrzavanjeKvizas[0].Organizator.Korisnik.email &&
+						quiz.status === 1 && (
+							<Box>
+								<RecordButton
+									quizId={quiz.id}
+									brojkrugova={quiz.brojkrugova}
+									onSuccess={() => {
+										setTrigger(!trigger);
+									}}
+								/>
+								<Button onClick={updateQuizState} ml={8}>
+									Zavrsi kviz
+								</Button>
+							</Box>
+						)}
 
 					<Heading mb={8} mt={8}>
 						Zapisi:

@@ -55,11 +55,17 @@ export const QuizTable: FC = () => {
 						if (!showUserQuizes) {
 							return true;
 						}
+						if (user) {
+							return (
+								user.email ===
+								quiz.OdrzavanjeKvizas[0].Organizator?.Korisnik.email
+							);
+						}
 						return false;
 					})
 					.map((quiz) => {
 						return (
-							<AccordionItem>
+							<AccordionItem key={`quiz${quiz.id}`}>
 								<AccordionButton>
 									<Box as="span" flex="1" textAlign="left">
 										{quiz.naziv}

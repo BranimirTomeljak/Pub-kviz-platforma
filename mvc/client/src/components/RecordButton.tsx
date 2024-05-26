@@ -10,6 +10,7 @@ import {
 	Select,
 	FormControl,
 	FormLabel,
+	Divider,
 } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -36,6 +37,13 @@ export const RecordButton: FC<{
 		handleSubmit,
 		formState: { errors },
 	} = useForm<IRecordData>();
+	const {
+		register: registerNaziv,
+		handleSubmit: handleNazivSubmit,
+		reset,
+	} = useForm<{
+		naziv: string;
+	}>();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const [teams, setTeams] = useState<ITeamData[]>([]);
@@ -69,6 +77,30 @@ export const RecordButton: FC<{
 				if (response.ok) {
 					onSuccess();
 					onClose();
+				}
+			} catch (error) {}
+		};
+
+		fetchData();
+	};
+
+	const onNazivSubmit = (values: { naziv: string }) => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch("http://localhost:3001/team/create", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ ...values }),
+				});
+
+				if (response.ok) {
+					const result = await fetch("http://localhost:3001/team/znj4");
+					const a = await result.json();
+
+					setTeams(a.teams);
+					reset();
 				}
 			} catch (error) {}
 		};
@@ -134,6 +166,20 @@ export const RecordButton: FC<{
 							/>
 							<Button type="submit" mt={4} colorScheme="teal">
 								Dodaj
+							</Button>
+						</form>
+						<Divider mt={4} mb={4} />
+						<form onSubmit={handleNazivSubmit(onNazivSubmit)}>
+							<InputField
+								type="text"
+								placeholder="Naziv tima"
+								label="Naziv tima"
+								{...registerNaziv("naziv", {
+									required: "Ovo polje je obavezno",
+								})}
+							/>
+							<Button type="submit" mt={4} colorScheme="teal">
+								Dodaj novi tim
 							</Button>
 						</form>
 					</ModalBody>

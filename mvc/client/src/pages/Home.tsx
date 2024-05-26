@@ -19,7 +19,7 @@ export const Home: FC = () => {
 				setUserId(a.user.id);
 			} catch (error) {
 				if (user) {
-					fetch("http://localhost:3001/user", {
+					fetch("http://localhost:3001/user/create", {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
