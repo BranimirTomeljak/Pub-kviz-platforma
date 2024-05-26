@@ -1,6 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import { InputField } from "./InputField";
-import { Box, Button, FormControl, FormLabel, Select } from "@chakra-ui/react";
+import {
+	Box,
+	Button,
+	FormControl,
+	FormLabel,
+	Select,
+	useToast,
+} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
 interface QuizFormProps {
@@ -11,7 +18,7 @@ interface QuizFormProps {
 	datum: Date;
 	trajanje: number;
 	brojkrugova: number;
-	idLokala: number;
+	idLokala: string;
 }
 
 export const QuizForm: FC<{ userId: any }> = ({ userId }) => {
@@ -21,15 +28,30 @@ export const QuizForm: FC<{ userId: any }> = ({ userId }) => {
 		formState: { errors },
 	} = useForm<QuizFormProps>();
 	const [places, setPlaces] = useState<any>([]);
+	const toast = useToast();
 
 	const onSubmit = (values: QuizFormProps) => {
-		fetch("http://localhost:3001/quiz/create", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ ...values, status: 0, userId }),
+		const place = places.find((place: { id: number }) => {
+			return place.id === parseInt(values.idLokala);
 		});
+
+		if (place.kapacitet < values.maxbrojtimova * values.maxvelicinatima) {
+			toast({
+				title: "Greška",
+				description: "Kapacitet lokala je manji od maksimalnog broja timova",
+				status: "error",
+				duration: 9000,
+				isClosable: true,
+			});
+		} else {
+			fetch("http://localhost:3001/quiz/create", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ ...values, status: 0, userId }),
+			});
+		}
 	};
 
 	useEffect(() => {
@@ -129,11 +151,13 @@ export const QuizForm: FC<{ userId: any }> = ({ userId }) => {
 								required: "Potrebno je odabrati lokal",
 							})}
 						>
-							{places.map((place: { id: number; naziv: string }) => (
-								<option key={`place${place.id}`} value={place.id}>
-									{place.naziv}
-								</option>
-							))}
+							{places.map(
+								(place: { id: number; naziv: string; kapacitet: number }) => (
+									<option key={`place${place.id}`} value={place.id}>
+										{place.naziv} ({place.kapacitet})
+									</option>
+								)
+							)}
 						</Select>
 					</FormControl>
 					<Button type="submit" mt={4}>
