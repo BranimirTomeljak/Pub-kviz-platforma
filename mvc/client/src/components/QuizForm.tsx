@@ -53,6 +53,13 @@ export const QuizForm: FC<{ userId: any }> = ({ userId }) => {
 				body: JSON.stringify({ ...values, status: 0, userId }),
 			}).finally(() => {
 				reset();
+				toast({
+					title: "Uspješno kreiran kviz",
+					description: "Kviz uspješno kreiran",
+					status: "success",
+					duration: 9000,
+					isClosable: true,
+				});
 			});
 		}
 	};
