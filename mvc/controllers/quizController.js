@@ -1,5 +1,6 @@
 const db = require("../models");
 const logger = require("../config/logger");
+const { Op } = require("sequelize");
 
 exports.createQuiz = async (req, res) => {
   try {
@@ -54,7 +55,12 @@ exports.getQuiz = async (req, res) => {
 
 exports.getQuizes = async (req, res) => {
   try {
+    const { naziv } = req.query;
+
+    const whereClause = naziv ? { naziv: { [Op.like]: `%${naziv}%` } } : {};
+
     const quizes = await db.Kviz.findAll({
+      where: whereClause,
       include: [{
         model: db.Pripada,
         include: [{

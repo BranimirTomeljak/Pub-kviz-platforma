@@ -14,7 +14,6 @@ import {
 import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { InputField } from "./InputField";
-import { on } from "events";
 
 interface IRecordData {
 	rednibrojkruga: number;
